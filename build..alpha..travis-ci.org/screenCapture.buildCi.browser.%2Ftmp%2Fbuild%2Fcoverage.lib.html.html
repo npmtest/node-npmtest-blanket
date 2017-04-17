@@ -1,0 +1,1081 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-blanket/node_modules/blanket/src/blanket_browser.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-blanket">npmtest-blanket (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-blanket/node_modules/blanket/src/blanket_browser.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">1.68% <small>(3 / 179)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 84)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">1.7% <small>(3 / 176)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> » <a href="index.html">node-npmtest-blanket/node_modules/blanket/src/</a> » blanket_browser.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">(<span class="fstat-no" title="function not covered">function(_blanket){</span>
+<span class="cstat-no" title="statement not covered">    var oldOptions = _blanket.options;</span>
+<span class="cstat-no" title="statement not covered">_blanket.extend({</span>
+    outstandingRequireFiles:[],
+    options: <span class="fstat-no" title="function not covered">function(key,value){</span>
+<span class="cstat-no" title="statement not covered">        var newVal={};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">        if (typeof key !== "string"){</span>
+            //key is key/value map
+<span class="cstat-no" title="statement not covered">            oldOptions(key);</span>
+<span class="cstat-no" title="statement not covered">            newVal = key;</span>
+        }else <span class="cstat-no" title="statement not covered">if (typeof value === 'undefined'){</span>
+            //accessor
+<span class="cstat-no" title="statement not covered">            return oldOptions(key);</span>
+        }else{
+            //setter
+<span class="cstat-no" title="statement not covered">            oldOptions(key,value);</span>
+<span class="cstat-no" title="statement not covered">            newVal[key] = value;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered">        if (newVal.adapter){</span>
+<span class="cstat-no" title="statement not covered">            _blanket._loadFile(newVal.adapter);</span>
+        }
+<span class="cstat-no" title="statement not covered">        if (newVal.loader){</span>
+<span class="cstat-no" title="statement not covered">            _blanket._loadFile(newVal.loader);</span>
+        }
+    },
+    requiringFile: <span class="fstat-no" title="function not covered">function(filename,done){</span>
+<span class="cstat-no" title="statement not covered">        if (typeof filename === "undefined"){</span>
+<span class="cstat-no" title="statement not covered">            _blanket.outstandingRequireFiles=[];</span>
+        }else <span class="cstat-no" title="statement not covered">if (typeof done === "undefined"){</span>
+<span class="cstat-no" title="statement not covered">            _blanket.outstandingRequireFiles.push(filename);</span>
+        }else{
+<span class="cstat-no" title="statement not covered">            _blanket.outstandingRequireFiles.splice(_blanket.outstandingRequireFiles.indexOf(filename),1);</span>
+        }
+    },
+    requireFilesLoaded: <span class="fstat-no" title="function not covered">function(){</span>
+<span class="cstat-no" title="statement not covered">        return _blanket.outstandingRequireFiles.length === 0;</span>
+    },
+    showManualLoader: <span class="fstat-no" title="function not covered">function(){</span>
+<span class="cstat-no" title="statement not covered">        if (document.getElementById("blanketLoaderDialog")){</span>
+<span class="cstat-no" title="statement not covered">            return;</span>
+        }
+        //copied from http://blog.avtex.com/2012/01/26/cross-browser-css-only-modal-box/
+<span class="cstat-no" title="statement not covered">        var loader = "&lt;div class='blanketDialogOverlay'&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&amp;nbsp;&lt;/div&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;div class='blanketDialogVerticalOffset'&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;div class='blanketDialogBox'&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;b&gt;Error:&lt;/b&gt; Blanket.js encountered a cross origin request error while instrumenting the source files.  ";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;br&gt;&lt;br&gt;This is likely caused by the source files being referenced locally (using the file:// protocol). ";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;br&gt;&lt;br&gt;Some solutions include &lt;a href='http://askubuntu.com/questions/160245/making-google-chrome-option-allow-file-access-from-files-permanent' target='_blank'&gt;starting Chrome with special flags&lt;/a&gt;, &lt;a target='_blank' href='https://github.com/remy/servedir'&gt;running a server locally&lt;/a&gt;, or using a browser without these CORS restrictions (Safari).";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;br&gt;";</span>
+<span class="cstat-no" title="statement not covered">            if (typeof FileReader !== "undefined"){</span>
+<span class="cstat-no" title="statement not covered">                loader += "&lt;br&gt;Or, try the experimental loader.  When prompted, simply click on the directory containing all the source files you want covered.";</span>
+<span class="cstat-no" title="statement not covered">                loader += "&lt;a href='javascript:document.getElementById(\"fileInput\").click();'&gt;Start Loader&lt;/a&gt;";</span>
+<span class="cstat-no" title="statement not covered">                loader += "&lt;input type='file' type='application/x-javascript' accept='application/x-javascript' webkitdirectory id='fileInput' multiple onchange='window.blanket.manualFileLoader(this.files)' style='visibility:hidden;position:absolute;top:-50;left:-50'/&gt;";</span>
+            }
+<span class="cstat-no" title="statement not covered">            loader += "&lt;br&gt;&lt;span style='float:right;cursor:pointer;'  onclick=document.getElementById('blanketLoaderDialog').style.display='none';&gt;Close&lt;/span&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;div style='clear:both'&gt;&lt;/div&gt;";</span>
+<span class="cstat-no" title="statement not covered">            loader += "&lt;/div&gt;&lt;/div&gt;";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">        var css = ".blanketDialogWrapper {";</span>
+<span class="cstat-no" title="statement not covered">            css += "display:block;";</span>
+<span class="cstat-no" title="statement not covered">            css += "position:fixed;";</span>
+<span class="cstat-no" title="statement not covered">            css += "z-index:40001; }";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">            css += ".blanketDialogOverlay {";</span>
+<span class="cstat-no" title="statement not covered">            css += "position:fixed;";</span>
+<span class="cstat-no" title="statement not covered">            css += "width:100%;";</span>
+<span class="cstat-no" title="statement not covered">            css += "height:100%;";</span>
+<span class="cstat-no" title="statement not covered">            css += "background-color:black;";</span>
+<span class="cstat-no" title="statement not covered">            css += "opacity:.5; ";</span>
+<span class="cstat-no" title="statement not covered">            css += "-ms-filter:'progid:DXImageTransform.Microsoft.Alpha(Opacity=50)'; ";</span>
+<span class="cstat-no" title="statement not covered">            css += "filter:alpha(opacity=50); ";</span>
+<span class="cstat-no" title="statement not covered">            css += "z-index:40001; }";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">            css += ".blanketDialogVerticalOffset { ";</span>
+<span class="cstat-no" title="statement not covered">            css += "position:fixed;";</span>
+<span class="cstat-no" title="statement not covered">            css += "top:30%;";</span>
+<span class="cstat-no" title="statement not covered">            css += "width:100%;";</span>
+<span class="cstat-no" title="statement not covered">            css += "z-index:40002; }";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">            css += ".blanketDialogBox { ";</span>
+<span class="cstat-no" title="statement not covered">            css += "width:405px; ";</span>
+<span class="cstat-no" title="statement not covered">            css += "position:relative;";</span>
+<span class="cstat-no" title="statement not covered">            css += "margin:0 auto;";</span>
+<span class="cstat-no" title="statement not covered">            css += "background-color:white;";</span>
+<span class="cstat-no" title="statement not covered">            css += "padding:10px;";</span>
+<span class="cstat-no" title="statement not covered">            css += "border:1px solid black; }";</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">        var dom = document.createElement("style");</span>
+<span class="cstat-no" title="statement not covered">        dom.innerHTML = css;</span>
+<span class="cstat-no" title="statement not covered">        document.head.appendChild(dom);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">        var div = document.createElement("div");</span>
+<span class="cstat-no" title="statement not covered">        div.id = "blanketLoaderDialog";</span>
+<span class="cstat-no" title="statement not covered">        div.className = "blanketDialogWrapper";</span>
+<span class="cstat-no" title="statement not covered">        div.innerHTML = loader;</span>
+<span class="cstat-no" title="statement not covered">        document.body.insertBefore(div,document.body.firstChild);</span>
+&nbsp;
+    },
+    manualFileLoader: <span class="fstat-no" title="function not covered">function(files){</span>
+<span class="cstat-no" title="statement not covered">        var toArray =Array.prototype.slice;</span>
+<span class="cstat-no" title="statement not covered">        files = toArray.call(files).filter(<span class="fstat-no" title="function not covered">function(item){</span></span>
+<span class="cstat-no" title="statement not covered">            return item.type !== "";</span>
+        });
+<span class="cstat-no" title="statement not covered">        var sessionLength = files.length-1;</span>
+<span class="cstat-no" title="statement not covered">        var sessionIndx=0;</span>
+<span class="cstat-no" title="statement not covered">        var sessionArray = {};</span>
+<span class="cstat-no" title="statement not covered">        if (sessionStorage["blanketSessionLoader"]){</span>
+<span class="cstat-no" title="statement not covered">            sessionArray = JSON.parse(sessionStorage["blanketSessionLoader"]);</span>
+        }
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered">        var fileLoader = <span class="fstat-no" title="function not covered">function(event){</span></span>
+<span class="cstat-no" title="statement not covered">            var fileContent = event.currentTarget.result;</span>
+<span class="cstat-no" title="statement not covered">            var file = files[sessionIndx];</span>
+<span class="cstat-no" title="statement not covered">            var filename = file.webkitRelativePath &amp;&amp; file.webkitRelativePath !== '' ? file.webkitRelativePath : file.name;</span>
+<span class="cstat-no" title="statement not covered">            sessionArray[filename] = fileContent;</span>
+<span class="cstat-no" title="statement not covered">            sessionIndx++;</span>
+<span class="cstat-no" title="statement not covered">            if (sessionIndx === sessionLength){</span>
+<span class="cstat-no" title="statement not covered">                sessionStorage.setItem("blanketSessionLoader", JSON.stringify(sessionArray));</span>
+<span class="cstat-no" title="statement not covered">                document.location.reload();</span>
+            }else{
+<span class="cstat-no" title="statement not covered">                readFile(files[sessionIndx]);</span>
+            }
+        };
+<span class="fstat-no" title="function not covered">        function readFile(file){</span>
+<span class="cstat-no" title="statement not covered">            var reader = new FileReader();</span>
+<span class="cstat-no" title="statement not covered">            reader.onload = fileLoader;</span>
+<span class="cstat-no" title="statement not covered">            reader.readAsText(file);</span>
+        }
+<span class="cstat-no" title="statement not covered">        readFile(files[sessionIndx]);</span>
+    },
+    _loadFile: <span class="fstat-no" title="function not covered">function(path){</span>
+<span class="cstat-no" title="statement not covered">        if (typeof path !== "undefined"){</span>
+<span class="cstat-no" title="statement not covered">            var request = new XMLHttpRequest();</span>
+<span class="cstat-no" title="statement not covered">            request.open('GET', path, false);</span>
+<span class="cstat-no" title="statement not covered">            request.send();</span>
+<span class="cstat-no" title="statement not covered">            _blanket._addScript(request.responseText);</span>
+        }
+    },
+    _addScript: <span class="fstat-no" title="function not covered">function(data){</span>
+<span class="cstat-no" title="statement not covered">        var script = document.createElement("script");</span>
+<span class="cstat-no" title="statement not covered">        script.type = "text/javascript";</span>
+<span class="cstat-no" title="statement not covered">        script.text = data;</span>
+<span class="cstat-no" title="statement not covered">        (document.body || document.getElementsByTagName('head')[0]).appendChild(script);</span>
+    },
+    hasAdapter: <span class="fstat-no" title="function not covered">function(callback){</span>
+<span class="cstat-no" title="statement not covered">        return _blanket.options("adapter") !== null;</span>
+    },
+    report: <span class="fstat-no" title="function not covered">function(coverage_data){</span>
+<span class="cstat-no" title="statement not covered">        if (!document.getElementById("blanketLoaderDialog")){</span>
+            //all found, clear it
+<span class="cstat-no" title="statement not covered">            _blanket.blanketSession = null;</span>
+        }
+<span class="cstat-no" title="statement not covered">        coverage_data.files = window._$blanket;</span>
+<span class="cstat-no" title="statement not covered">        var require = blanket.options("commonJS") ? blanket._commonjs.require : window.require;</span>
+&nbsp;
+        // Check if we have any covered files that requires reporting
+        // otherwise just exit gracefully.
+<span class="cstat-no" title="statement not covered">        if (!coverage_data.files || !Object.keys(coverage_data.files).length) {</span>
+<span class="cstat-no" title="statement not covered">            if (_blanket.options("debug")) {<span class="cstat-no" title="statement not covered">console.log("BLANKET-Reporting No files were instrumented.");}</span></span>
+<span class="cstat-no" title="statement not covered">            return;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered">        if (typeof coverage_data.files.branchFcn !== "undefined"){</span>
+<span class="cstat-no" title="statement not covered">            delete coverage_data.files.branchFcn;</span>
+        }
+<span class="cstat-no" title="statement not covered">        if (typeof _blanket.options("reporter") === "string"){</span>
+<span class="cstat-no" title="statement not covered">            _blanket._loadFile(_blanket.options("reporter"));</span>
+<span class="cstat-no" title="statement not covered">            _blanket.customReporter(coverage_data,_blanket.options("reporter_options"));</span>
+        }else <span class="cstat-no" title="statement not covered">if (typeof _blanket.options("reporter") === "function"){</span>
+<span class="cstat-no" title="statement not covered">            _blanket.options("reporter")(coverage_data,_blanket.options("reporter_options"));</span>
+        }else <span class="cstat-no" title="statement not covered">if (typeof _blanket.defaultReporter === 'function'){</span>
+<span class="cstat-no" title="statement not covered">            _blanket.defaultReporter(coverage_data,_blanket.options("reporter_options"));</span>
+        }else{
+<span class="cstat-no" title="statement not covered">            throw new Error("no reporter defined.");</span>
+        }
+    },
+    _bindStartTestRunner: <span class="fstat-no" title="function not covered">function(bindEvent,startEvent){</span>
+<span class="cstat-no" title="statement not covered">        if (bindEvent){</span>
+<span class="cstat-no" title="statement not covered">            bindEvent(startEvent);</span>
+        }else{
+<span class="cstat-no" title="statement not covered">            if (document.readyState === "complete") {</span>
+<span class="cstat-no" title="statement not covered">                startEvent();</span>
+            } else {
+<span class="cstat-no" title="statement not covered">                window.addEventListener("load",startEvent,false);</span>
+            }
+        }
+    },
+    _loadSourceFiles: <span class="fstat-no" title="function not covered">function(callback){</span>
+<span class="cstat-no" title="statement not covered">        var require = blanket.options("commonJS") ? blanket._commonjs.require : window.require;</span>
+<span class="fstat-no" title="function not covered">        function copy(o){</span>
+<span class="cstat-no" title="statement not covered">          var _copy = Object.create( Object.getPrototypeOf(o) );</span>
+<span class="cstat-no" title="statement not covered">          var propNames = Object.getOwnPropertyNames(o);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">          propNames.forEach(<span class="fstat-no" title="function not covered">function(name){</span></span>
+<span class="cstat-no" title="statement not covered">            var desc = Object.getOwnPropertyDescriptor(o, name);</span>
+<span class="cstat-no" title="statement not covered">            Object.defineProperty(_copy, name, desc);</span>
+          });
+&nbsp;
+<span class="cstat-no" title="statement not covered">          return _copy;</span>
+        }
+<span class="cstat-no" title="statement not covered">        if (_blanket.options("debug")) {<span class="cstat-no" title="statement not covered">console.log("BLANKET-Collecting page scripts");}</span></span>
+<span class="cstat-no" title="statement not covered">        var scripts = _blanket.utils.collectPageScripts();</span>
+        //_blanket.options("filter",scripts);
+<span class="cstat-no" title="statement not covered">        if (scripts.length === 0){</span>
+<span class="cstat-no" title="statement not covered">            callback();</span>
+        }else{
+&nbsp;
+            //check session state
+<span class="cstat-no" title="statement not covered">            if (sessionStorage["blanketSessionLoader"]){</span>
+<span class="cstat-no" title="statement not covered">                _blanket.blanketSession = JSON.parse(sessionStorage["blanketSessionLoader"]);</span>
+            }
+            
+<span class="cstat-no" title="statement not covered">            scripts.forEach(<span class="fstat-no" title="function not covered">function(file,indx){</span></span>
+<span class="cstat-no" title="statement not covered">                _blanket.utils.cache[file]={</span>
+                    loaded:false
+                };
+            });
+            
+<span class="cstat-no" title="statement not covered">            var currScript=-1;</span>
+<span class="cstat-no" title="statement not covered">            _blanket.utils.loadAll(<span class="fstat-no" title="function not covered">function(test){</span></span>
+<span class="cstat-no" title="statement not covered">                if (test){</span>
+<span class="cstat-no" title="statement not covered">                  return typeof scripts[currScript+1] !== 'undefined';</span>
+                }
+<span class="cstat-no" title="statement not covered">                currScript++;</span>
+<span class="cstat-no" title="statement not covered">                if (currScript &gt;= scripts.length){</span>
+<span class="cstat-no" title="statement not covered">                  return null;</span>
+                }
+<span class="cstat-no" title="statement not covered">                return scripts[currScript];</span>
+            },callback);
+        }
+    },
+    beforeStartTestRunner: <span class="fstat-no" title="function not covered">function(opts){</span>
+<span class="cstat-no" title="statement not covered">        opts = opts || {};</span>
+<span class="cstat-no" title="statement not covered">        opts.checkRequirejs = typeof opts.checkRequirejs === "undefined" ? true : opts.checkRequirejs;</span>
+<span class="cstat-no" title="statement not covered">        opts.callback = opts.callback || <span class="fstat-no" title="function not covered">function() {</span>  };</span>
+<span class="cstat-no" title="statement not covered">        opts.coverage = typeof opts.coverage === "undefined" ? true : opts.coverage;</span>
+<span class="cstat-no" title="statement not covered">        if (opts.coverage) {</span>
+<span class="cstat-no" title="statement not covered">            _blanket._bindStartTestRunner(opts.bindEvent,</span>
+<span class="fstat-no" title="function not covered">            function(){</span>
+<span class="cstat-no" title="statement not covered">                _blanket._loadSourceFiles(<span class="fstat-no" title="function not covered">function() {</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">                    var allLoaded = <span class="fstat-no" title="function not covered">function(){</span></span>
+<span class="cstat-no" title="statement not covered">                        return opts.condition ? opts.condition() : _blanket.requireFilesLoaded();</span>
+                    };
+<span class="cstat-no" title="statement not covered">                    var check = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">                        if (allLoaded()) {</span>
+<span class="cstat-no" title="statement not covered">                            if (_blanket.options("debug")) {<span class="cstat-no" title="statement not covered">console.log("BLANKET-All files loaded, init start test runner callback.");}</span></span>
+<span class="cstat-no" title="statement not covered">                            var cb = _blanket.options("testReadyCallback");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">                            if (cb){</span>
+<span class="cstat-no" title="statement not covered">                                if (typeof cb === "function"){</span>
+<span class="cstat-no" title="statement not covered">                                    cb(opts.callback);</span>
+                                }else <span class="cstat-no" title="statement not covered">if (typeof cb === "string"){</span>
+<span class="cstat-no" title="statement not covered">                                    _blanket._addScript(cb);</span>
+<span class="cstat-no" title="statement not covered">                                    opts.callback();</span>
+                                }
+                            }else{
+<span class="cstat-no" title="statement not covered">                                opts.callback();</span>
+                            }
+                        } else {
+<span class="cstat-no" title="statement not covered">                            setTimeout(check, 13);</span>
+                        }
+                    };
+<span class="cstat-no" title="statement not covered">                    check();</span>
+                });
+            });
+        }else{
+<span class="cstat-no" title="statement not covered">            opts.callback();</span>
+        }
+    },
+    utils: {
+        qualifyURL: <span class="fstat-no" title="function not covered">function (url) {</span>
+            //http://stackoverflow.com/questions/470832/getting-an-absolute-url-from-a-relative-one-ie6-issue
+<span class="cstat-no" title="statement not covered">            var a = document.createElement('a');</span>
+<span class="cstat-no" title="statement not covered">            a.href = url;</span>
+<span class="cstat-no" title="statement not covered">            return a.href;</span>
+        }
+    }
+});
+&nbsp;
+})(blanket);
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Mon Apr 17 2017 16:45:41 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
