@@ -1,4 +1,7 @@
-# test coverage for  [blanket (v1.2.3)](https://github.com/alex-seville/blanket)  [![npm package](https://img.shields.io/npm/v/npmtest-blanket.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-blanket) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-blanket.svg)](https://travis-ci.org/npmtest/node-npmtest-blanket)
+# npmtest-blanket
+
+#### basic test coverage for  [blanket (v1.2.3)](https://github.com/alex-seville/blanket)  [![npm package](https://img.shields.io/npm/v/npmtest-blanket.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-blanket) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-blanket.svg)](https://travis-ci.org/npmtest/node-npmtest-blanket)
+
 #### seamless js code coverage
 
 [![NPM](https://nodei.co/npm/blanket.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/blanket)
